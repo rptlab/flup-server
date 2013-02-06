@@ -1227,8 +1227,7 @@ class BaseFCGIServer(object):
 </head><body>
 <h1>Unhandled Exception</h1>
 <p>An unhandled exception was thrown by the application.</p>
-</body></html>
+</body><!--FLUP fcgi_base.py--></html>
 """
-            req.stdout.write('Status: 500 Internal Server Error\r\n' +
-                             'Content-Type: text/html\r\n\r\n' +
+            req.stdout.write('Content-Type: text/html\r\nStatus: 500 Internal Server Error(FLUP)\r\n\r\n' +
                              errorpage)

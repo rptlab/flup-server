@@ -563,8 +563,7 @@ class BaseSCGIServer(object):
 </head><body>
 <h1>Unhandled Exception</h1>
 <p>An unhandled exception was thrown by the application.</p>
-</body></html>
+</body><!--FLUP scgi_base.py--></html>
 """
-            request.stdout.write('Status: 500 Internal Server Error\r\n' +
-                                 'Content-Type: text/html\r\n\r\n' +
-                                 errorpage)
+            req.stdout.write('Content-Type: text/html\r\nStatus: 500 Internal Server Error(FLUP)\r\n\r\n' +
++                             errorpage)

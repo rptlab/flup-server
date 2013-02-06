@@ -971,8 +971,7 @@ class BaseAJPServer(object):
 </head><body>
 <h1>Unhandled Exception</h1>
 <p>An unhandled exception was thrown by the application.</p>
-</body></html>
+</body><!--FLUP ajp_base.py--></html>
 """
-            request.startResponse(500, 'Internal Server Error',
-                                  [('Content-Type', 'text/html')])
+            request.startResponse(500, 'Internal Server Error(FLUP)', [('Content-Type', 'text/html')])
             request.write(errorpage)
