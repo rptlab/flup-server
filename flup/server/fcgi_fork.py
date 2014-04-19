@@ -70,7 +70,7 @@ class WSGIServer(BaseFCGIServer, PreforkServer):
     """
     def __init__(self, application, environ=None,
                  bindAddress=None, umask=None, multiplexed=False,
-                 debug=False, roles=(FCGI_RESPONDER,), forceCGI=False,
+                 debug=False, roles=BaseFCGIServer._defaultRoles(), forceCGI=False,
                  timeout=None, **kw):
         """
         environ, if present, must be a dictionary-like object. Its

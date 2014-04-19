@@ -912,8 +912,19 @@ class MultiplexedConnection(Connection):
             super(MultiplexedConnection, self)._do_data(inrec)
         finally:
             self._lock.release()
-        
+
 class BaseFCGIServer(object):
+    def _defaultRoles(roles=None):
+        if roles is None:
+            NS=dict(
+                    FCGI_RESPONDER = FCGI_RESPONDER,
+                    FCGI_AUTHORIZER = FCGI_AUTHORIZER,
+                    FCGI_FILTER = FCGI_FILTER,
+                    )
+            roles=eval(os.environ.get('FCGI_ROLES','FCGI_RESPONDER,'),NS)
+        return roles
+    _defaultRoles=staticmethod(_defaultRoles)
+
     request_class = Request
     cgirequest_class = CGIRequest
 
@@ -930,7 +941,7 @@ class BaseFCGIServer(object):
     def __init__(self, application, environ=None,
                  multithreaded=True, multiprocess=False,
                  bindAddress=None, umask=None, multiplexed=False,
-                 debug=False, roles=(FCGI_RESPONDER,),
+                 debug=False, roles=None,
                  forceCGI=False):
         """
         bindAddress, if present, must either be a string or a 2-tuple. If
@@ -962,6 +973,8 @@ class BaseFCGIServer(object):
         self.multithreaded = multithreaded
         self.multiprocess = multiprocess
         self.debug = debug
+        if roles is None:
+            roles = self._defaultRoles()
         self.roles = roles
         self.forceCGI = forceCGI
 
